@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль студента</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fa;
+        }
+        .sidebar {
+            width: 260px;
+            background: #2d6a91;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px 0;
+        }
+        .sidebar .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .sidebar .profile img {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .sidebar .profile .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .sidebar ul li:hover {
+            background: #22506e;
+        }
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #4a90e2;
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+        }
+        .profile-info {
+            background: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .profile-info h2 {
+            margin-top: 0;
+        }
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .profile-table th, .profile-table td {
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .profile-table th {
+            background: #f4f7fa;
+        }
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Аватар">
+            <div class="name">Сарсембаев P.E.</div>
+            <div style="font-size: 13px; color: #b2e672;">Platonus 6.0 build# 381</div>
+            <div style="font-size: 12px; margin-top: 5px;">Platon ID 42638</div>
+        </div>
+        <ul>
+            <li>Обучение</li>
+            <li>Настройки</li>
+            <li>Центр обслуживания</li>
+            <li>Библиотека</li>
+            <li>Документы</li>
+            <li>Дом студентов</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h2>Сарсембаев P.E.</h2>
+                <div style="font-size: 15px;">Информационные технологии</div>
+                <div style="font-size: 13px; color: #e0e0e0;">Факультет информационных технологий и экономики</div>
+            </div>
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Аватар" width="50">
+        </div>
+        <div class="profile-info">
+            <h2>Информация о студенте</h2>
+            <table class="profile-table">
+                <tr>
+                    <th>Курс</th>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <th>Группа</th>
+                    <td>ВТ-402с</td>
+                </tr>
+                <tr>
+                    <th>Язык обучения</th>
+                    <td>русский</td>
+                </tr>
+                <tr>
+                    <th>Форма обучения</th>
+                    <td>Очная (СПО)</td>
+                </tr>
+            </table>
+            <button style="margin-top: 20px; padding: 10px 20px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Изменить фото</button>
+        </div>
+        <div class="profile-info" style="margin-top: 25px;">
+            <h2>Расписание занятий</h2>
+            <table class="profile-table">
+                <tr>
+                    <th>Дисциплина</th>
+                    <th>Кред.</th>
+                    <th>Тек.</th>
+                    <th>P1</th>
+                    <th>P2</th>
+                    <th>КР/КП</th>
+                    <th>Экз.</th>
+                    <th>Итог</th>
+                </tr>
+                <tr>
+                    <td>Архитектура и организация компьютерных систем</td>
+                    <td>3</td>
+                    <td>90</td>
+                    <td>85</td>
+                    <td>88</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>87</td>
+                </tr>
+                <!-- Добавь свои строки -->
+            </table>
+        </div>
+    </div>
+</body>
+</html>
