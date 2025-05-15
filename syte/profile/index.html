@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Портфолио | Факультетус</title>
+    <link rel="stylesheet" href="/static/profile/main.css">
+    <script src="/static/profile/script.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Факультетус</div>
+        <nav>
+            <a href="#">Главная</a>
+            <a href="#">События</a>
+            <a href="#">Вакансии</a>
+        </nav>
+    </header>
+    <main class="main-content">
+        <section class="profile-header">
+            <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rollan">
+            <div>
+                <div class="profile-name">Rollan Destroyer</div>
+                <div class="profile-role">Студент, метод Мой QR</div>
+                <div class="profile-tabs">
+                    <button class="tab-btn">Карьера</button>
+                    <button class="tab-btn active">Портфолио</button>
+                    <button class="tab-btn">Закладки</button>
+                    <button class="tab-btn">Настройки</button>
+                </div>
+            </div>
+        </section>
+        <section class="portfolio-section">
+            <h2>Проекты</h2>
+            <div class="portfolio-list">
+                <div class="portfolio-card">
+                    <div class="portfolio-title">Сайт для университета</div>
+                    <div class="portfolio-desc">Разработка сайта для внутреннего портала университета. Использованы: HTML, CSS, JS, Python (FastAPI).</div>
+                    <div class="portfolio-date">2024</div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-title">Мобильное приложение "StudyApp"</div>
+                    <div class="portfolio-desc">Приложение для учёта учебных достижений студентов. Использованы: Flutter, Firebase.</div>
+                    <div class="portfolio-date">2023</div>
+                </div>
+                <!-- Добавь свои проекты здесь -->
+            </div>
+            <button class="add-btn">Добавить проект</button>
+        </section>
+    </main>
+    <aside class="sidebar">
+        <div class="block">
+            <div class="block-title">Образование</div>
+            <div>НИУ МИЭТ<br><span class="small">Бакалавриат, 1 курс</span></div>
+            <button class="add-btn small">Добавить ВУЗ/Колледж</button>
+        </div>
+        <div class="block">
+            <div class="block-title">Курсы</div>
+            <div>Нет курсов</div>
+            <button class="add-btn small">Добавить</button>
+        </div>
+        <div class="block">
+            <div class="block-title">События</div>
+            <div class="event">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_Ministry_of_Internal_Affairs_of_Russia.svg" alt="event" class="event-img">
+                <div>
+                    <div class="event-title">Карьера в МВД России</div>
+                    <div class="event-date">сегодня, 12:00</div>
+                </div>
+            </div>
+            <div class="event">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="event" class="event-img">
+                <div>
+                    <div class="event-title">Открытый разговор с компанией ООО АВЗ-С</div>
+                    <div class="event-date">сегодня, 12:00</div>
+                </div>
+            </div>
+            <button class="add-btn small">Больше событий</button>
+        </div>
+    </aside>
+</body>
+</html>
