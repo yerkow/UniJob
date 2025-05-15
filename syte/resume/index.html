@@ -4,96 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профиль студента</title>
-    <link rel="stylesheet" href="main.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fa;
-        }
-        .sidebar {
-            width: 260px;
-            background: #2d6a91;
-            color: #fff;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            padding: 20px 0;
-        }
-        .sidebar .profile {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .sidebar .profile img {
-            width: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-        .sidebar .profile .name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar ul li {
-            padding: 12px 30px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .sidebar ul li:hover {
-            background: #22506e;
-        }
-        .main-content {
-            margin-left: 260px;
-            padding: 30px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #4a90e2;
-            color: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-        }
-        .profile-info {
-            background: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            margin-top: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .profile-info h2 {
-            margin-top: 0;
-        }
-        .profile-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .profile-table th, .profile-table td {
-            border: 1px solid #e0e0e0;
-            padding: 8px 12px;
-            text-align: left;
-        }
-        .profile-table th {
-            background: #f4f7fa;
-        }
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/static/main.css">
+    <script src="static/main.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -104,6 +16,7 @@
             <div style="font-size: 12px; margin-top: 5px;">Platon ID 42638</div>
         </div>
         <ul>
+            <li>Личный кабинет</li>
             <li>Обучение</li>
             <li>Настройки</li>
             <li>Центр обслуживания</li>
@@ -121,6 +34,7 @@
             </div>
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Аватар" width="50">
         </div>
+        <!-- Информация о студенте -->
         <div class="profile-info">
             <h2>Информация о студенте</h2>
             <table class="profile-table">
@@ -143,6 +57,126 @@
             </table>
             <button style="margin-top: 20px; padding: 10px 20px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Изменить фото</button>
         </div>
+
+        <!-- Вкладки личного кабинета -->
+        <div class="profile-info" style="margin-top: 25px;">
+            <h2>Личный кабинет</h2>
+            <div style="border-bottom: 1px solid #e0e0e0; margin-bottom: 20px;">
+                <button type="button" id="tab-main" style="background:none;border:none;padding:10px 20px;font-size:16px;cursor:pointer;border-bottom:2px solid #4a90e2;color:#4a90e2;">Личный кабинет</button>
+                <button type="button" id="tab-resume" style="background:none;border:none;padding:10px 20px;font-size:16px;cursor:pointer;color:#444;">Моё резюме</button>
+            </div>
+            <!-- Содержимое вкладок -->
+            <div id="tab-main-content">
+                <form>
+                    <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+                        <div style="flex: 1 1 300px; min-width: 250px;">
+                            <label>Имя*</label>
+                            <input type="text" placeholder="Имя" style="width:100%;margin-bottom:10px;">
+                            <label>Фамилия*</label>
+                            <input type="text" placeholder="Фамилия" style="width:100%;margin-bottom:10px;">
+                            <label>Отчество</label>
+                            <input type="text" placeholder="Отчество" style="width:100%;margin-bottom:10px;">
+                            <label>Эл.почта*</label>
+                            <input type="email" placeholder="Эл.почта" style="width:100%;margin-bottom:10px;">
+                            <label>Место работы</label>
+                            <input type="text" placeholder="Место работы" style="width:100%;margin-bottom:10px;">
+                            <label>Адрес</label>
+                            <input type="text" placeholder="Адрес" style="width:100%;margin-bottom:10px;">
+                            <label>Внутренний телефон</label>
+                            <input type="text" placeholder="Внутренний телефон" style="width:100%;margin-bottom:10px;">
+                        </div>
+                        <div style="flex: 1 1 300px; min-width: 250px;">
+                            <label>Имя транслитом*</label>
+                            <input type="text" placeholder="Имя транслитом" style="width:100%;margin-bottom:10px;">
+                            <label>Фамилия транслитом*</label>
+                            <input type="text" placeholder="Фамилия транслитом" style="width:100%;margin-bottom:10px;">
+                            <label>Отчество транслитом</label>
+                            <input type="text" placeholder="Отчество транслитом" style="width:100%;margin-bottom:10px;">
+                            <label>Должность</label>
+                            <input type="text" placeholder="Должность" style="width:100%;margin-bottom:10px;">
+                            <label>Дата рождения</label>
+                            <input type="date" style="width:100%;margin-bottom:10px;">
+                            <label>Номер телефона</label>
+                            <input type="text" placeholder="Номер телефона" style="width:100%;margin-bottom:10px;">
+                            <label>Пол</label>
+                            <input type="text" placeholder="Пол" style="width:100%;margin-bottom:10px;">
+                        </div>
+                        <div style="flex: 0 0 180px; text-align:center;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Аватар" style="width:120px; border-radius:50%; margin-bottom:15px;">
+                            <br>
+                            <button type="button" style="padding:8px 18px; background:#4a90e2; color:#fff; border:none; border-radius:4px; cursor:pointer;">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="tab-resume-content" style="display:none;">
+                <form id="resume-form">
+                    <table class="profile-table">
+                        <tr>
+                            <th style="width: 250px;">ФИО*</th>
+                            <td>
+                                <input type="text" name="fio" placeholder="Введите ФИО" required
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Дата рождения*</th>
+                            <td>
+                                <input type="date" name="birthdate" required
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Эл.почта*</th>
+                            <td>
+                                <input type="email" name="email" placeholder="Введите эл.почту" required
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Образование</th>
+                            <td>
+                                <input type="text" name="education" placeholder="Введите образование"
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Опыт работы</th>
+                            <td>
+                                <input type="text" name="experience" placeholder="Введите опыт работы"
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Языки</th>
+                            <td>
+                                <input type="text" name="languages" placeholder="Введите языки"
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Навыки</th>
+                            <td>
+                                <input type="text" name="skills" placeholder="Введите навыки"
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Дополнительная информация</th>
+                            <td>
+                                <input type="text" name="extra" placeholder="Введите дополнительную информацию"
+                                    style="width:100%;border:none;border-bottom:1px solid #ccc;background:transparent;outline:none;">
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" style="margin-top:20px;padding:10px 28px;background:#4a90e2;color:#fff;border:none;border-radius:4px;cursor:pointer;">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Расписание занятий -->
         <div class="profile-info" style="margin-top: 25px;">
             <h2>Расписание занятий</h2>
             <table class="profile-table">
@@ -169,6 +203,8 @@
                 <!-- Добавь свои строки -->
             </table>
         </div>
+
     </div>
+
 </body>
 </html>
