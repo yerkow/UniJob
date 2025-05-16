@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fafbfc;
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    align-items: center;
+    padding: 16px 32px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.logo {
+    font-size: 32px;
+    color: #a03be3;
+    font-weight: bold;
+    margin-right: 24px;
+}
+nav {
+    flex: 1;
+}
+nav a {
+    margin: 0 16px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+.search-bar {
+    display: flex;
+    gap: 12px;
+    padding: 24px 32px 0 32px;
+    background: #fff;
+}
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+.region-btn, .filter-btn {
+    padding: 10px 18px;
+    border: 1px solid #a03be3;
+    background: #fff;
+    color: #a03be3;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.job-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 32px;
+}
+.job-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.job-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.apply-btn {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.job-company {
+    color: #888;
+    font-size: 14px;
+}
+.job-tags span {
+    background: #eee;
+    color: #555;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin-right: 6px;
+    font-size: 13px;
+}
+.job-salary {
+    color: #222;
+    font-weight: bold;
+    margin-top: 4px;
+}
+.job-desc {
+    color: #444;
+    font-size: 14px;
+}
+.job-location {
+    color: #a03be3;
+    font-size: 13px;
+}
