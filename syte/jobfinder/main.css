@@ -9,13 +9,22 @@ header {
     align-items: center;
     padding: 16px 32px;
     background: #fff;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #e0c6f7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 .logo {
     font-size: 32px;
     color: #a03be3;
     font-weight: bold;
-    margin-right: 24px;
+    margin-right: 10px;
+}
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    margin-right: 32px;
 }
 nav {
     flex: 1;
@@ -29,18 +38,21 @@ nav a {
 .menu-icon {
     font-size: 24px;
     cursor: pointer;
+    margin-left: 16px;
 }
 .search-bar {
     display: flex;
     gap: 12px;
     padding: 24px 32px 0 32px;
     background: #fff;
+    border-bottom: 1px solid #eee;
 }
 .search-bar input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 6px;
+    font-size: 16px;
 }
 .region-btn, .filter-btn {
     padding: 10px 18px;
@@ -49,6 +61,7 @@ nav a {
     color: #a03be3;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 15px;
 }
 .job-list {
     display: grid;
@@ -64,6 +77,7 @@ nav a {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-height: 200px;
 }
 .job-header {
     display: flex;
@@ -82,10 +96,14 @@ nav a {
     padding: 8px 18px;
     cursor: pointer;
     font-weight: 500;
+    font-size: 15px;
 }
 .job-company {
     color: #888;
     font-size: 14px;
+}
+.job-tags {
+    margin: 6px 0;
 }
 .job-tags span {
     background: #eee;
@@ -94,6 +112,7 @@ nav a {
     padding: 4px 10px;
     margin-right: 6px;
     font-size: 13px;
+    display: inline-block;
 }
 .job-salary {
     color: #222;
@@ -107,4 +126,9 @@ nav a {
 .job-location {
     color: #a03be3;
     font-size: 13px;
+}
+@media (max-width: 900px) {
+    .job-list {
+        grid-template-columns: 1fr;
+    }
 }

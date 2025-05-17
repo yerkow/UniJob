@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fafbfc;
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    align-items: center;
+    padding: 16px 32px;
+    background: #fff;
+    border-bottom: 2px solid #e0c6f7;
+}
+.logo {
+    font-size: 32px;
+    color: #a03be3;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    margin-right: 32px;
+}
+nav {
+    flex: 1;
+}
+nav a {
+    margin: 0 16px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 16px;
+}
+main {
+    padding: 24px 48px;
+}
+.breadcrumbs {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.breadcrumbs a {
+    color: #a03be3;
+    text-decoration: none;
+}
+h2 {
+    margin: 0 0 16px 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+.search-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.search-filter-bar input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 15px;
+}
+.filter .all {
+    background: #a03be3;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 14px;
+    margin-left: 2px;
+}
+.responses-list {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.response-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.response-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 2px;
+}
+.response-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #222;
+}
+.response-status {
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 3px 12px;
+    font-weight: 500;
+}
+.response-status.accepted {
+    background: #e6f7ec;
+    color: #219653;
+    border: 1px solid #b7e2c7;
+}
+.response-status.new {
+    background: #f3e6ff;
+    color: #a03be3;
+    border: 1px solid #e0c6f7;
+}
+.response-company {
+    color: #888;
+    font-size: 14px;
+}
+.response-date {
+    color: #aaa;
+    font-size: 13px;
+}
+.response-message {
+    color: #444;
+    font-size: 15px;
+    margin-top: 4px;
+}

@@ -31,7 +31,7 @@ def serve_profile():
     return html_content
 
 #Меню поиск вакансии
-@app.get('jobfinder', response_class=HTMLResponse)
+@app.get('/jobfinder', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'jobfinder' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -39,7 +39,7 @@ def server_profile():
     return html_content
 
 #Меню Отклики и приглашения
-@app.get('responses', response_class=HTMLResponse)
+@app.get('/responses', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'responses' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -47,7 +47,7 @@ def server_profile():
     return html_content
 
 #Меню Дни карьеры
-@app.get('fairs', response_class=HTMLResponse)
+@app.get('/fairs', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'fairs' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -55,7 +55,7 @@ def server_profile():
     return html_content
 
 #Меню События
-@app.get('activities', response_class=HTMLResponse)
+@app.get('/activities', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'activities' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -63,7 +63,7 @@ def server_profile():
     return html_content
 
 #Меню Курсы
-@app.get('courses', response_class=HTMLResponse)
+@app.get('/courses', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'courses' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -71,7 +71,7 @@ def server_profile():
     return html_content
 
 # Меню Тестирования
-@app.get('tests', response_class=HTMLResponse)
+@app.get('/tests', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'tests' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
@@ -79,7 +79,7 @@ def server_profile():
     return html_content
 
 # Меню СКБ
-@app.get('skblist', response_class=HTMLResponse)
+@app.get('/skblist', response_class=HTMLResponse)
 def server_profile():
     html_path = static_dir / 'skblist' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
