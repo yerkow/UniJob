@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход и регистрация | Факультетус</title>
+    <link rel="stylesheet" href="/static/auth/main.css">
+    <script src="/static/auth/script.js" defer></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <button class="tab-btn active" id="tab-user">Пользователь</button>
+            <button class="tab-btn" id="tab-org">Организация</button>
+        </div>
+        <div class="auth-form" id="login-form">
+            <button class="google-btn" id="google-login">Войти через Google</button>
+            <div class="or">или</div>
+            <input type="email" placeholder="E-mail" id="login-email">
+            <input type="password" placeholder="Пароль" id="login-password">
+            <div class="auth-actions">
+                <button id="login-btn">Вход</button>
+                <button id="show-register">Регистрация</button>
+            </div>
+            <a href="#" class="forgot">Забыли пароль</a>
+        </div>
+        <div class="auth-form hidden" id="register-form">
+            <button class="google-btn" id="google-register">Регистрация через Google</button>
+            <div class="or">или</div>
+            <input type="email" placeholder="E-mail" id="reg-email">
+            <input type="password" placeholder="Пароль" id="reg-password">
+            <input type="password" placeholder="Повторите пароль" id="reg-password2">
+            <input type="text" placeholder="Ваше имя" id="reg-name">
+            <input type="text" placeholder="Ваша фамилия" id="reg-surname">
+            <div class="auth-actions">
+                <button id="register-btn">Регистрация</button>
+                <button id="show-login">Вход</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

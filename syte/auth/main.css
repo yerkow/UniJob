@@ -1,0 +1,87 @@
+body {
+    background: #fafbfc;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.auth-container {
+    width: 350px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 28px 32px 18px 32px; /* увеличены отступы слева и справа */
+    position: relative;
+    min-height: 420px;
+}
+.auth-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+.tab-btn {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: #f4f4f4;
+    color: #555;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    margin-right: 2px;
+    transition: background 0.15s;
+}
+.tab-btn.active {
+    background: #fff;
+    color: #7b2ff2;
+    border-bottom: 2px solid #7b2ff2;
+}
+.auth-form {
+    opacity: 1;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding: 0 4px 0 4px;
+    box-sizing: border-box;
+}
+.auth-form.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none; /* форма полностью скрыта и не занимает места */
+}
+input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+}
+.auth-actions {
+    display: flex;
+    gap: 10px;
+}
+button {
+    padding: 10px 0;
+    border-radius: 6px;
+    border: none;
+    background: #7b2ff2;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    flex: 1;
+}
+button.google-btn {
+    background: #4285f4;
+    color: #fff;
+}
+.or {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}
+.forgot {
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+    display: block;
+    margin-top: 6px;
+}
