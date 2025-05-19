@@ -18,12 +18,12 @@ document.getElementById('show-login').onclick = function() {
     document.getElementById('login-form').classList.remove('hidden');
 };
 
-document.getElementById('google-login').onclick = function() {
-    window.location.href = '/auth/google/login?type=' + 
+document.getElementById('github-login').onclick = function() {
+    window.location.href = '/auth/github/login?type=' + 
         (document.getElementById('tab-org').classList.contains('active') ? 'org' : 'user');
 };
 
-document.getElementById('google-register').onclick = function() {
-    window.location.href = '/auth/google/login?type=' + 
+document.getElementById('github-register').onclick = function() {
+    window.location.href = '/auth/github/login?type=' + 
         (document.getElementById('tab-org').classList.contains('active') ? 'org' : 'user');
 };
