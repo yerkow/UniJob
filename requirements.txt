@@ -1,0 +1,11 @@
+fastapi==0.68.0
+uvicorn==0.15.0
+python-multipart==0.0.5
+python-jose==3.3.0
+passlib==1.7.4
+sqlalchemy==1.4.46  # вместо 2.0.41 (для совместимости с fastapi-authlib и fastapi-sa)
+pydantic==1.8.2
+aiosqlite==0.17.0
+alembic==1.10.3     # вместо 1.7.5 (требуется fastapi-authlib)
+fastapi-authlib==0.0.4
+fastapi-sa==0.1.0

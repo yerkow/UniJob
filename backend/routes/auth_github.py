@@ -3,11 +3,10 @@ import json
 import os
 from jose import jwt
 from datetime import datetime, timedelta
-load_dotenv()  # Загружает переменные из .env
-
 from fastapi import APIRouter, Request
 from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth
+load_dotenv()  # Загружает переменные из .env
 
 router = APIRouter()
 oauth = OAuth()
