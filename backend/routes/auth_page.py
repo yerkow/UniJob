@@ -5,6 +5,7 @@ from pathlib import Path
 router = APIRouter()
 static_dir = Path(__file__).parent.parent.parent / 'syte'
 
+#Страница входа
 @router.get('/auth', response_class=HTMLResponse)
 def serve_auth():
     html_path = static_dir / 'auth' / 'index.html'
