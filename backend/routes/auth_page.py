@@ -13,6 +13,3 @@ def serve_auth():
     html_path = static_dir / 'auth' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
         return file.read()
-    
-@router.post('/api/register')
-# def creaate_user(name: str, email: str, db:Session = Depends())

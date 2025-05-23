@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Факультетус — Карьера</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f8fa;
+      color: #222;
+    }
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      justify-content: space-between;
+    }
+    .topbar .logo {
+      font-weight: bold;
+      font-size: 22px;
+      color: #6b4fff;
+      display: flex;
+      align-items: center;
+    }
+    .topbar .logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6b4fff, #ff4f8b);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    .topbar .menu {
+      display: flex;
+      gap: 32px;
+      font-size: 16px;
+    }
+    .topbar .menu a {
+      color: #222;
+      text-decoration: none;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      transition: border 0.2s;
+    }
+    .topbar .menu a.active {
+      border-bottom: 2px solid #6b4fff;
+      font-weight: bold;
+    }
+    .profile-card {
+      background: #fff;
+      margin: 32px auto 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      max-width: 900px;
+      padding: 24px 32px 16px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #bdbdbd;
+      margin-right: 16px;
+    }
+    .profile-info {
+      flex: 1;
+    }
+    .profile-info .name {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .profile-info .links {
+      font-size: 13px;
+      color: #6b4fff;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 12px;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 16px;
+      margin-left: auto;
+    }
+    .profile-actions button {
+      background: none;
+      border: none;
+      color: #6b4fff;
+      font-size: 15px;
+      cursor: pointer;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .profile-actions button:hover {
+      text-decoration: underline;
+    }
+    .tabs {
+      background: #fff;
+      margin: 16px auto 0 auto;
+      max-width: 900px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      height: 56px;
+      gap: 0;
+    }
+    .tabs .tab {
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      color: #222;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: border 0.2s, color 0.2s;
+    }
+    .tabs .tab.active {
+      color: #d32f2f;
+      border-bottom: 2px solid #d32f2f;
+      font-weight: bold;
+    }
+    .tabs .tab:not(.active):hover {
+      background: #f7f8fa;
+    }
+    .tabs .tab-label {
+      color: #888;
+      background: none;
+      border: none;
+      padding: 0 24px;
+      font-size: 16px;
+      cursor: default;
+    }
+    .main-content {
+      max-width: 900px;
+      margin: 16px auto 32px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .block {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 20px 28px 16px 28px;
+      margin-bottom: 0;
+    }
+    .block-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .block-title .red {
+      color: #d32f2f;
+      font-size: 18px;
+    }
+    .block-title .green {
+      color: #388e3c;
+      font-size: 18px;
+    }
+    .block-title .dot {
+      font-size: 18px;
+      margin-left: 4px;
+    }
+    .block-content {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .block-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .btn {
+      background: #43d854;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 18px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #2fa73a;
+    }
+    .btn.gray {
+      background: #f3f3f3;
+      color: #222;
+      border: 1px solid #e0e0e0;
+    }
+    .btn.gray:hover {
+      background: #e0e0e0;
+    }
+    .btn.green {
+      background: #43d854;
+      color: #fff;
+    }
+    .btn.red {
+      background: #d32f2f;
+      color: #fff;
+    }
+    .btn.small {
+      padding: 4px 12px;
+      font-size: 14px;
+    }
+    .block .block-actions .btn {
+      margin-right: 0;
+    }
+    .block .block-actions .btn:last-child {
+      margin-right: 0;
+    }
+    .block .block-actions {
+      margin-top: 0;
+    }
+    .block .block-content:last-child {
+      margin-bottom: 0;
+    }
+    @media (max-width: 1000px) {
+      .profile-card, .tabs, .main-content { max-width: 100vw; }
+      .profile-card, .tabs, .main-content { padding-left: 0; padding-right: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">
+      <span class="logo-circle">Ф</span>
+      Факультетус
+    </div>
+    <div class="menu">
+      <a href="#" class="active">Главная</a>
+      <a href="#">События</a>
+      <a href="#">Вакансии</a>
+    </div>
+  </div>
+  <div class="profile-card">
+    <div class="profile-avatar">Ф</div>
+    <div class="profile-info">
+      <div class="name">Диас Хуснулин</div>
+      <div class="links">
+        <a href="#">Изменить аватар</a>
+        <a href="#">Мой QR</a>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button><span>Вакансии</span></button>
+      <button><span>Отклики</span></button>
+      <button><span>Тесты</span></button>
+      <button><span>Чаты</span></button>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active">Карьера</button>
+    <button class="tab" style="color:#d32f2f;">Портфолио</button>
+    <span class="tab-label">Закладки</span>
+    <span class="tab-label">Настройки</span>
+  </div>
+  <div class="main-content">
+    <div class="block">
+      <div class="block-title">
+        Мои профессии <span class="red">❗</span>
+      </div>
+      <div class="block-content">
+        Предпочтения в профессиях не выбраны
+      </div>
+      <div class="block-actions">
+        <button class="btn gray small">Изменить</button>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">
+        Предложения о работе <span class="green">✔</span>
+      </div>
+      <div class="block-content">
+        Получать приглашения от работодателей
+      </div>
+      <div class="block-actions">
+        <button class="btn gray small">Не получать</button>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">
+        Предпринимательство
+      </div>
+      <div class="block-content">
+        Хочу или есть свой бизнес
+      </div>
+      <div class="block-content" style="color:#888; font-size:14px;">
+        Установи статус, если планируешь или уже есть свой бизнес
+      </div>
+      <div class="block-actions">
+        <button class="btn gray small">Вкл</button>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">
+        Типы организаций
+      </div>
+      <div class="block-content">
+        Предпочтения в компаниях не указаны
+      </div>
+      <div class="block-actions">
+        <button class="btn green small">Выбрать</button>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">
+        Сферы
+      </div>
+      <div class="block-content">
+        Предпочтения в сферах не выбраны
+      </div>
+      <div class="block-actions">
+        <button class="btn green small">Выбрать</button>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-title">
+        Проекты
+      </div>
+      <div class="block-content">
+        Пока нет проектов
+      </div>
+      <div class="block-actions">
+        <button class="btn green small">Создать</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
