@@ -10,4 +10,4 @@ static_dir = Path(__file__).parent.parent.parent / 'syte'
 def serve_auth():
     html_path = static_dir / 'auth' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
-        return file.read()
+        return file.read()  

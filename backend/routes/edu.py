@@ -24,3 +24,9 @@ def serve_skblist():
     html_path = static_dir / 'skblist' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
         return file.read()
+    
+@router.get('/profile_', response_class=HTMLResponse)
+def serve_skblist():
+    html_path = static_dir / 'profile_' / 'index.html'
+    with open(html_path, 'r', encoding='utf-8') as file:
+        return file.read()
