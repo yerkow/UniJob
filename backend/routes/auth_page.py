@@ -1,6 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.responses import HTMLResponse
 from pathlib import Path
+from sqlalchemy.orm import sessionmaker, declarative_base
+from ..database.main import database
 
 router = APIRouter()
 static_dir = Path(__file__).parent.parent.parent / 'syte'
@@ -11,3 +13,6 @@ def serve_auth():
     html_path = static_dir / 'auth' / 'index.html'
     with open(html_path, 'r', encoding='utf-8') as file:
         return file.read()
+    
+@router.post('/api/register')
+# def creaate_user(name: str, email: str, db:Session = Depends())
