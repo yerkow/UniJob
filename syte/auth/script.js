@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () =>{
     document.getElementById("register-btn").addEventListener("click", async () => {
         const email = document.getElementById("reg-email").value;
         const password = document.getElementById("reg-password").value;
-        const password2 = document.getElementById("reg-password2").value;
+        const config_password = document.getElementById("reg-password2").value;
         const name = document.getElementById("reg-name").value;
         const surname = document.getElementById("reg-surname").value;
         const reg_type = document.querySelector(".tab-btn.active").id === "tab-user" ? "user" : "org";
 
-        if (password !== password2) {
+        if (password !== config_password) {
             showMessage("Пароли не совпадают", "error");
             return;
         }
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         const response = await fetch("/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, password2, name, surname, type: reg_type })
+            body: JSON.stringify({ email, password, config_password, name, surname, type: reg_type })
         });
 
         const data = await response.json();

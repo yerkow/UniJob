@@ -6,7 +6,7 @@ from ..database.connectDB import Base, engine, db_get, Asanali
 from ..database.models import User, UserCreate
 from pydantic import ValidationError
 from .untils import hashFunction
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 # Asanali.metadata.create_all(bind=engine)
 
 router = APIRouter()
@@ -20,13 +20,12 @@ def serve_auth():
         return file.read()
     
 @router.post('/api/register')
-def register_user(name: str = Form(...), firstName:str = Form(...) , password:str= Form(...), passwordTwo:str = Form(...) , email:str = Form(...), db: Session = Depends(db_get)):
-    try:
-        data = UserCreate(name= name, email= email, password=password, config_password= passwordTwo)
-    except ValidationError as error:
-        return {"error": error.errors()}
+async def register_user(request: Request ,data: UserCreate ,db: Session = Depends(db_get)):
+    body = await request.json()
+    print(body)
+
     hash = hashFunction(data.password)
-    newUser = User(name= data.name, email = data.email, hash_password = hash)
+    newUser = User(email= data.email, hashed_password= hash, first_name= data.name, last_name= data.surname, types= data.type)
     db.add(newUser)
     db.commit()
-    return RedirectResponse(url="/sprofile")
+    return RedirectResponse(url="/sprofile", status_code=303)

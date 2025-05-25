@@ -1,20 +1,24 @@
 from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import declarative_base
 from .connectDB import Base, Asanali
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import BaseModel, validator, root_validator
 import bcrypt
 
 class UserCreate(BaseModel):
-    name: str
     email:str
     password: str
     config_password: str
+    name: str
+    surname: str
+    type: str
 
-    @validator('config_password')
-    def checkPassword(cls, value, values):
-        if('password' in value and value != values):
-            raise ValidationError("Пароли не совподают")
-        return value
+    @root_validator
+    def passwords_match(cls, values):
+        pw = values.get('password')
+        cpw = values.get('config_password')
+        if pw != cpw:
+            raise ValueError('Пароли не совпадают')
+        return values
 
 class User(Base):
     __tablename__ = "users"
@@ -23,4 +27,5 @@ class User(Base):
     hashed_password = Column(String(255))
     first_name = Column(String(255))
     last_name = Column(String(255))
+    types = Column(String(10))
     created_at = Column(DateTime, server_default=func.now())
