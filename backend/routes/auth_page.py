@@ -28,4 +28,4 @@ async def register_user(request: Request ,data: UserCreate ,db: Session = Depend
     newUser = User(email= data.email, hashed_password= hash, first_name= data.name, last_name= data.surname, types= data.type)
     db.add(newUser)
     db.commit()
-    return RedirectResponse(url="/sprofile", status_code=303)
+    return RedirectResponse(url="/sprofile", status_code=307)
