@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Поиск студентов</title>
+  <link rel="stylesheet" href="/static/employer/main.css">
+  <script src="/static/employer/script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="logo">Карьерный навигатор</div>
+    <nav>
+      <a href="/sprofile">Профиль</a>
+      <a href="/activities">События</a>
+      <a href="/jobfinder">Вакансии</a>
+    </nav>
+    <div class="user-icon" id="userMenuBtn">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rollan" />
+    </div>
+  </header>
+
+  <main>
+    <section class="main-block">
+      <h1>Поиск студентов</h1>
+      <p class="subtitle">Найдите подходящих кандидатов для вашей компании</p>
+      <div class="search-block">
+        <input type="text" id="searchInput" placeholder="Введите имя, навык или университет">
+        <button id="openFiltersBtn" type="button">Фильтры</button>
+        <button id="searchBtn">Поиск</button>
+      </div>
+      <!-- Модальное окно фильтров -->
+      <div class="filter-modal" id="filterModal">
+        <div class="filter-content">
+          <button class="close-filter" id="closeFiltersBtn" title="Закрыть">&times;</button>
+          <h3>Фильтры</h3>
+          <select id="educationLevelFilter">
+            <option value="">Любой уровень</option>
+            <option value="Бакалавриат">Бакалавриат</option>
+            <option value="Магистратура">Магистратура</option>
+            <option value="Докторантура">Докторантура</option>
+          </select>
+          <select id="educationAreaFilter">
+            <option value="">Любая область</option>
+            <option value="Педагогические науки">Педагогические науки</option>
+            <option value="Искусство и гуманитарные науки">Искусство и гуманитарные науки</option>
+            <option value="Информационно-коммуникационные технологии">Информационно-коммуникационные технологии</option>
+          </select>
+          <select id="directionNameFilter" class="hideable">
+            <option value="">Любое направление</option>
+            <option value="Педагогика и психология">Педагогика и психология</option>
+            <option value="Информационные технологии">Информационные технологии</option>
+          </select>
+          <div id="specializationMultiSelect" class="multiselect-block"></div>
+          <select id="expFilter">
+            <option value="">Любой опыт</option>
+            <option value="Нет">Нет</option>
+            <option value="Стажировка">Стажировка</option>
+            <option value="Работа">Работа</option>
+          </select>
+          <div id="skillsMultiSelect" class="multiselect-block"></div>
+          <div id="languagesMultiSelect" class="multiselect-block"></div>
+          <div id="specializationMultiSelect" class="multiselect-block"></div>
+          <select id="regionFilter">
+            <option value="">Все регионы</option>
+            <option value="Астана">Астана</option>
+            <option value="Алматинская область">Алматинская область</option>
+            <option value="Атырауская область">Атырауская область</option>
+            <option value="Акмолинская область">Акмолинская область</option>
+            <option value="Актюбинская область">Актюбинская область</option>
+            <option value="Восточно-Казахстанская область">Восточно-Казахстанская область</option>
+            <option value="Жамбылская область">Жамбылская область</option>
+            <option value="Западно-Казахстанская область">Западно-Казахстанская область</option>
+            <option value="Карагандинская область">Карагандинская область</option>
+            <option value="Костанайская область">Костанайская область</option>
+            <option value="Кызылординская область">Кызылординская область</option>
+            <option value="Мангистауская область">Мангистауская область</option>
+            <option value="Павлодарская область">Павлодарская область</option>
+            <option value="Северо-Казахстанская область">Северо-Казахстанская область</option>
+            <option value="Туркестанская область">Туркестанская область</option>
+            <option value="Улытауская область">Улытауская область</option>
+            <option value="Шымкент">Шымкент</option>
+          </select>
+          <select id="cityFilter" class="hideable">
+          <option value="">Все города</option>
+          <option value="Астана">Астана</option>
+          <option value="Алматы">Алматы</option>
+          <option value="Шымкент">Шымкент</option>
+          <option value="Караганда">Караганда</option>
+          <option value="Актобе">Актобе</option>
+          <option value="Павлодар">Павлодар</option>
+          <option value="Тараз">Тараз</option>
+          <option value="Костанай">Костанай</option>
+          <option value="Уральск">Уральск</option>
+          <option value="Семей">Семей</option>
+          <option value="Кызылорда">Кызылорда</option>
+          <option value="Атырау">Атырау</option>
+          <option value="Петропавловск">Петропавловск</option>
+          <option value="Темиртау">Темиртау</option>
+          <option value="Экибастуз">Экибастуз</option>
+          <option value="Жезказган">Жезказган</option>
+          <option value="Кокшетау">Кокшетау</option>
+          <option value="Туркестан">Туркестан</option>
+          <option value="Актау">Актау</option>
+          <option value="Талдыкорган">Талдыкорган</option>
+          <!-- Добавь другие города по необходимости -->
+        </select>
+          <select id="genderFilter">
+            <option value="">Любой пол</option>
+            <option value="Мужской">Мужской</option>
+            <option value="Женский">Женский</option>
+          </select>
+          <div class="filter-actions">
+            <button id="applyFiltersBtn" type="button">Применить</button>
+            <button id="resetFiltersBtn" type="button">Сбросить</button>
+          </div>
+        </div>
+      </div>
+      <div id="studentsList">
+        <!-- Карточки студентов будут подгружаться сюда через JS -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -19,4 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
             userMenu.classList.remove('active');
         }
     });
+    function applyFilters() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const city = document.getElementById("cityFilter").value;
+    
+      const cards = document.querySelectorAll(".vacancy-card");
+    
+      cards.forEach(card => {
+        const title = card.getAttribute("data-title").toLowerCase();
+        const cardCity = card.getAttribute("data-city");
+    
+        const matchesSearch = title.includes(search);
+        const matchesCity = city === "" || cardCity === city;
+    
+        if (matchesSearch && matchesCity) {
+          card.classList.add("show");
+        } else {
+          card.classList.remove("show");
+        }
+      });
+    }
+    
+    // Вызываем поиск при загрузке для отображения всех вакансий
+    window.onload = applyFilters;
 });
