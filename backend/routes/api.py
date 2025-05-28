@@ -10,6 +10,7 @@ from .events import router as events_router
 from .edu import router as edu_router
 from .auth_page import router as auth_router
 from .auth_github import router as auth_github
+from .students_api import router as student_api
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key= os.getenv("SECRET_KEY"))
@@ -22,3 +23,4 @@ app.include_router(events_router)
 app.include_router(edu_router)
 app.include_router(auth_router)
 app.include_router(auth_github)
+app.include_router(student_api)

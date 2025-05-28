@@ -1,80 +1,81 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Вакансии, стажировки и практика</title>
-    <link rel="stylesheet" href="/static/home/main.css">
-    <script src="/static/home/script.js"></script>
+  <meta charset="UTF-8" />
+  <title>Вакансии, стажировки и практика</title>
+  <link rel="stylesheet" href="/static/home/main.css">
+  <script src="/static/home/script.js"></script>
+  <style>
+    
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Карьерный навигатор</div>
-        <nav>
-            <a href="/sprofile">Профиль</a>
-            <a href="/activities">События</a>
-            <a href="/jobfinder">Вакансии</a>
-        </nav>
-        <div class="user-icon" id="userMenuBtn">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rollan" />
+  <header>
+    <div class="logo">Карьерный навигатор</div>
+    <nav>
+      <a href="/sprofile">Профиль</a>
+      <a href="/activities">События</a>
+      <a href="/jobfinder">Вакансии</a>
+    </nav>
+    <div class="user-icon" id="userMenuBtn">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg " alt="Rollan" />
+    </div>
+    <div class="user-menu" id="userMenu">
+      <div class="user-info">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg " alt="Rollan" />
+        <div>
+          <div class="user-name">Rollan</div>
+          <div class="user-role">Пользователь</div>
         </div>
-        <div class="user-menu" id="userMenu">
-            <div class="user-info">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rollan" />
-                <div>
-                    <div class="user-name">Rollan</div>
-                    <div class="user-role">Пользователь</div>
-                </div>
-            </div>
-            <ul>
-                <li>Профиль</li>
-                <li>Поиск вакансий</li>
-                <li>Отклики и приглашения</li>
-                <li>Чаты</li>
-                <li>Дни карьеры</li>
-                <li>События</li>
-                <li>Курсы</li>
-                <li>Тестирования</li>
-                <li>СКБ</li>
-                <li>Выход</li>
-            </ul>
+      </div>
+      <ul>
+        <li>Профиль</li>
+        <li>Поиск вакансий</li>
+        <li>Отклики и приглашения</li>
+        <li>Чаты</li>
+        <li>Дни карьеры</li>
+        <li>События</li>
+        <li>Курсы</li>
+        <li>Тестирования</li>
+        <li>СКБ</li>
+        <li>Выход</li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="main-block">
+      <h1>Вакансии, стажировки и практика</h1>
+      <p class="subtitle">От партнёров твоего университета или колледжа</p>
+      <div class="main-buttons">
+        <button class="tab-btn active" id="vacancies-btn">Вакансии</button>
+        <button class="tab-btn" id="events-btn">События</button>
+        <button class="tab-btn" id="resume-btn">Резюме</button>
+      </div>
+      <div class="region-info">
+        В регионе Область Абай в данный момент не используется карьерный навигатор
+      </div>
+    </section>
+
+    <aside>
+      <div class="universities-block">
+        <div class="universities-header">
+          <span>Университеты</span>
+          <button class="all-btn">Все</button>
         </div>
-    </header>
-    <main>
-        <section class="main-block">
-            <h1>Вакансии, стажировки и практика</h1>
-            <p class="subtitle">От партнёров твоего университета или колледжа</p>
-            <div class="main-buttons">
-                <button class="tab-btn active" id="vacancies-btn">Вакансии</button>
-                <button class="tab-btn" id="events-btn">События</button>
-                <button class="tab-btn" id="resume-btn">Резюме</button>
-            </div>
-            <div class="search-block">
-                <input type="text" placeholder="Поиск">
-                <button>Поиск</button>
-            </div>
-            <div class="region-info">
-                В регионе Область Абай в данный момент не используется карьерный навигатор
-            </div>
-        </section>
-        <aside>
-            <div class="universities-block">
-                <div class="universities-header">
-                    <span>Университеты</span>
-                    <button class="all-btn">Все</button>
-                </div>
-                <ul class="universities-list">
-                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="logo"> ИВГПУ <span>Иваново</span></li>
-                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="logo"> БИ СГУ <span>Балашов</span></li>
-                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="logo"> ИУБиП <span>Ростов-на-Дону</span></li>
-                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="logo"> УдГУ <span>Ижевск</span></li>
-                    <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png" alt="logo"> МГУТУ им. К.Г. Разумовского <span>Москва</span></li>
-                </ul>
-                <button class="see-all-btn">Смотреть все</button>
-            </div>
-            <div class="side-block">Ярмарки вакансий <button class="all-btn">Все</button></div>
-            <div class="side-block">События <button class="all-btn">Все</button></div>
-        </aside>
-    </main>
-    
+        <ul class="universities-list">
+          <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png " alt="logo"> ИВГПУ <span>Иваново</span></li>
+          <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png " alt="logo"> БИ СГУ <span>Балашов</span></li>
+          <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png " alt="logo"> ИУБиП <span>Ростов-на-Дону</span></li>
+          <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png " alt="logo"> УдГУ <span>Ижевск</span></li>
+          <li><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Example_university_logo.png " alt="logo"> МГУТУ им. К.Г. Разумовского <span>Москва</span></li>
+        </ul>
+        <button class="see-all-btn">Смотреть все</button>
+      </div>
+      <div class="side-block">Ярмарки вакансий <button class="all-btn">Все</button></div>
+      <div class="side-block">События <button class="all-btn">Все</button></div>
+    </aside>
+  </main>
+
 </body>
 </html>
