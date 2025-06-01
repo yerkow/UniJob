@@ -7,6 +7,8 @@ from ..database.models import User, UserCreate
 from backend.database.fake_students import create_fake_students
 from pydantic import ValidationError
 from .untils import hashFunction
+import logging
+logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
 
 Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)

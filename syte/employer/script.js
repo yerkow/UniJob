@@ -6,26 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const applyFiltersBtn = document.getElementById('applyFiltersBtn');
     const resetFiltersBtn = document.getElementById('resetFiltersBtn');
 
-    openFiltersBtn.onclick = () => filterModal.classList.add('active');
-    closeFiltersBtn.onclick = () => filterModal.classList.remove('active');
-    applyFiltersBtn.onclick = () => {
-        filterModal.classList.remove('active');
-        fetchAndRenderStudents();
-    };
-    resetFiltersBtn.onclick = () => {
-        filterModal.querySelectorAll('select, input').forEach(el => el.value = '');
-        fetchAndRenderStudents();
-        cityFilter.classList.add('hideable');
-        directionNameFilter.classList.add('hideable');
-        // Сброс мультиселектов
-        skillsMultiSelect.reset();
-        languagesMultiSelect.reset();
-        specializationMultiSelect.reset();
-    };
-    filterModal.onclick = (e) => {
-        if (e.target === filterModal) filterModal.classList.remove('active');
-    };
-
     // --- Фильтры и поиск ---
     const searchBtn = document.getElementById('searchBtn');
     const searchInput = document.getElementById('searchInput');
@@ -37,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const directionNameFilter = document.getElementById('directionNameFilter');
     const genderFilter = document.getElementById('genderFilter');
     const studentsList = document.getElementById('studentsList');
+    // Для доступа к выбранным значениям
+    const skillsMultiSelect = document.getElementById('skillsMultiSelect');
+    const languagesMultiSelect = document.getElementById('languagesMultiSelect');
+    const specializationMultiSelect = document.getElementById('specializationMultiSelect');
 
     // --- Мультиселекты ---
     const skillsOptions = [
@@ -82,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById(containerId);
         container.innerHTML = `
             <div class="selected-list"></div>
-            <input type="text" class="multi-input" placeholder="Добавить...">
+            <input type="text" class="multi-input" placeholder="Введите специализацию...">
             <div class="options-list" style="display:none"></div>
         `;
         const selectedList = container.querySelector('.selected-list');
@@ -106,22 +90,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedList.appendChild(tag);
             });
         }
-
+        
         function renderOptions(filter = '') {
             optionsList.innerHTML = '';
             let filtered = options.filter(opt => opt.toLowerCase().includes(filter.toLowerCase()) && !selected.includes(opt));
             if (filter && !options.includes(filter) && !selected.includes(filter)) {
-                const addItem = document.createElement('div');
-                addItem.className = 'option-item';
-                addItem.textContent = `Добавить «${filter}»`;
-                addItem.onclick = () => {
-                    selected.push(filter);
-                    input.value = '';
-                    optionsList.style.display = 'none';
-                    renderSelected();
-                };
-                optionsList.appendChild(addItem);
             }
+            const addItem = document.createElement('div');
+            addItem.className = 'option-item';
+            addItem.textContent = `Добавить «${filter}»`;
+            addItem.onclick = () => {
+                selected.push(filter);
+                input.value = '';
+                optionsList.style.display = 'none';
+                renderSelected();
+            };
+            optionsList.appendChild(addItem);
             filtered.forEach(opt => {
                 const item = document.createElement('div');
                 item.className = 'option-item';
@@ -134,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 optionsList.appendChild(item);
             });
-            optionsList.style.display = filtered.length ? 'block' : 'none';
+            optionsList.style.display = (filtered.length || (filter && !options.includes(filter) && !selected.includes(filter))) ? 'block' : 'none';
         }
 
         input.oninput = () => {
@@ -154,19 +138,56 @@ document.addEventListener('DOMContentLoaded', function() {
             selected = [];
             renderSelected();
         };
+        // Для установки выбранных значений программно
+        container.setSelected = (arr) => {
+            selected = arr.slice();
+            renderSelected();
+        };
 
         renderSelected();
     }
 
-    // Инициализация мультиселектов
+    // --- Инициализация мультиселектов ---
     createMultiSelect('skillsMultiSelect', skillsOptions);
     createMultiSelect('languagesMultiSelect', languagesOptions);
     createMultiSelect('specializationMultiSelect', specializationOptions);
-
-    // Для доступа к выбранным значениям
-    const skillsMultiSelect = document.getElementById('skillsMultiSelect');
-    const languagesMultiSelect = document.getElementById('languagesMultiSelect');
-    const specializationMultiSelect = document.getElementById('specializationMultiSelect');
+    function createAiSelect(containerId){
+        const containerDiv = document.getElementById(containerId)
+        const selectedList = containerDiv.querySelector('.selected-list')
+    }
+    // --- MCP: AI smart filter ---
+    async function aiSmartFilter(queryText) {
+        const response = await fetch('/api/ai_filter', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                query: queryText,
+                skills: skillsOptions,
+                specializations: specializationOptions,
+                languages: languagesOptions
+            })
+        });
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let result = '';
+        document.getElementById('aiReasoning').textContent = '';
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            result += decoder.decode(value, { stream: true });
+            document.getElementById('aiReasoning').textContent = result;
+        }
+        // После завершения потока — парсим JSON и выставляем фильтры
+        try {
+            const ai_filter = JSON.parse(result);
+            // Выставляем выбранные значения в мультиселекты
+            skillsMultiSelect.setSelected(ai_filter.filters.skills || []);
+            specializationMultiSelect.setSelected(ai_filter.filters.specializations || []);
+            languagesMultiSelect.setSelected(ai_filter.filters.languages || []);
+        } catch (e) {
+            // Если не удалось распарсить — ничего не делаем
+        }
+    }
 
     // --- Фильтрация студентов ---
     async function fetchAndRenderStudents() {
@@ -232,18 +253,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    searchBtn.onclick = fetchAndRenderStudents;
+    // --- Обработчики событий ---
+    openFiltersBtn.onclick = () => filterModal.classList.add('active');
+    closeFiltersBtn.onclick = () => filterModal.classList.remove('active');
+    applyFiltersBtn.onclick = () => {
+        filterModal.classList.remove('active');
+        fetchAndRenderStudents();
+    };
+    resetFiltersBtn.onclick = () => {
+        filterModal.querySelectorAll('select, input').forEach(el => el.value = '');
+        fetchAndRenderStudents();
+        cityFilter.classList.add('hideable');
+        directionNameFilter.classList.add('hideable');
+        skillsMultiSelect.reset();
+        languagesMultiSelect.reset();
+        specializationMultiSelect.reset();
+    };
+    filterModal.onclick = (e) => {
+        if (e.target === filterModal) filterModal.classList.remove('active');
+    };
+
+    searchBtn.onclick = function() {
+        fetchAndRenderStudents();
+        aiSmartFilter(searchInput.value);
+    };
+
     searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
             fetchAndRenderStudents();
+            aiSmartFilter(searchInput.value);
         }
     });
+
     cityFilter.onchange = fetchAndRenderStudents;
     expFilter.onchange = fetchAndRenderStudents;
 
     // --- Остальной код для фильтров (region, area и т.д.) ---
-    // Словарь: область -> направления
     const directionsByArea = {
         "Педагогические науки": [
             "Педагогика и психология",
@@ -273,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Добавь остальные области и направления по аналогии
     };
 
-    // При изменении области — обновляем направления
     educationAreaFilter.onchange = function() {
         if (educationAreaFilter.value) {
             directionNameFilter.classList.remove('hideable');
@@ -291,12 +336,10 @@ document.addEventListener('DOMContentLoaded', function() {
             directionNameFilter.classList.add('hideable');
             directionNameFilter.innerHTML = '<option value="">Любое направление</option>';
         }
-        // Сбросить выбранное направление при смене области
         directionNameFilter.value = '';
         fetchAndRenderStudents();
     };
 
-    // Словарь: регион -> города
     const regionCities = {
         "Астана": ["Астана"],
         "Алматинская область": [
@@ -347,7 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "Шымкент": ["Шымкент"]
     };
 
-    // При изменении региона — обновляем города
     regionFilter.onchange = function() {
         if (regionFilter.value) {
             cityFilter.classList.remove('hideable');
@@ -365,11 +407,11 @@ document.addEventListener('DOMContentLoaded', function() {
             cityFilter.classList.add('hideable');
             cityFilter.innerHTML = '<option value="">Все города</option>';
         }
-        // Сбросить выбранный город при смене региона
         cityFilter.value = '';
         fetchAndRenderStudents();
     };
 
     // Показываем всех студентов при загрузке
     fetchAndRenderStudents();
+    // document.querySelector('form').onsubmit = e => e.preventDefault();
 });

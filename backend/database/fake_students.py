@@ -3,7 +3,9 @@ from fastapi import APIRouter, Form, Depends, Request
 from sqlalchemy.orm import Session
 from .connectDB import db_get
 import random
+import logging
 
+logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
 def create_fake_students(db: Session =  Depends(db_get())):
     fake_data = [
         {

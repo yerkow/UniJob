@@ -11,6 +11,9 @@ from .edu import router as edu_router
 from .auth_page import router as auth_router
 from .auth_github import router as auth_github
 from .students_api import router as student_api
+import logging
+
+logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
 
 app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key= os.getenv("SECRET_KEY"))
