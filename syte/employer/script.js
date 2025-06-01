@@ -453,4 +453,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Показываем всех студентов при загрузке
     fetchAndRenderStudents();
     // document.querySelector('form').onsubmit = e => e.preventDefault();
+
+    const aiReasoningBox = document.getElementById('aiReasoning');
+    const aiReasoningToggle = document.getElementById('aiReasoningToggle');
+    const aiReasoningToggleIcon = document.getElementById('aiReasoningToggleIcon');
+    console.log()
+    function updateReasoningToggle() {
+        if (aiReasoningBox.scrollHeight > aiReasoningBox.clientHeight + 5) {
+            aiReasoningToggle.style.display = '';
+        } else {
+            aiReasoningToggle.style.display = 'none';
+        }
+        // Показывать кнопку, если текст обрезан
+    }
+
+    aiReasoningToggle.onclick = function() {
+        aiReasoningBox.classList.toggle('expanded');
+        aiReasoningToggleIcon.innerHTML = aiReasoningBox.classList.contains('expanded') ? '&#8593;' : '&#8595;';
+    };
+
+    const origSetReasoning = (text) => {
+        aiReasoningBox.textContent = text;
+        aiReasoningBox.classList.remove('expanded');
+        aiReasoningToggleIcon.innerHTML = '&#8595;';
+        setTimeout(updateReasoningToggle, 100); // подождать рендер
+    };
+
+    // Используй origSetReasoning для вывода reasoning:
+    origSetReasoning("Текст reasoning...");
+
+    // Если reasoning приходит по частям (stream), вызывай origSetReasoning(result) после окончания стрима
 });

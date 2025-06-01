@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Поиск студентов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/employer/main.css">
   <script src="/static/employer/script.js" defer></script>
 </head>
 <body>
   <header>
-    <div class="logo">Карьерный навигатор</div>
+    <div class="logo">Career Navigator</div>
     <nav>
       <a href="/sprofile">Профиль</a>
       <a href="/activities">События</a>
@@ -21,8 +24,8 @@
 
   <main>
     <section class="main-block">
-      <h1>Поиск студентов</h1>
-      <p class="subtitle">Найдите подходящих кандидатов для вашей компании</p>
+      <h1>Найдите идеальных студентов для вашей компании за считанные минуты</h1>
+      <p class="subtitle">На этой странице вы можете найти студентов и выпускников вузов  Казахстана, которые ищут работу, стажировку или возможность развиваться в выбранной сфере.</p>
       <div class="search-block">
         <input type="text" id="searchInput" placeholder="Введите имя, навык или университет">
         <button id="openFiltersBtn" type="button">Фильтры</button>
@@ -116,7 +119,13 @@
         </div>
       </div>
 
-      <div id="aiReasoning" class="ai-reasoning-block"></div>
+        <div class="ai-reasoning-box-wrapper">
+            <div class="ai-reasoning-box" id="aiReasoning"></div>
+            <button class="ai-reasoning-toggle" id="aiReasoningToggle" style="display:none;">
+                <span id="aiReasoningToggleIcon">&#8595;</span>
+            </button>
+        </div>
+</div>
 
       <div id="studentsList">
         <!-- Карточки студентов будут подгружаться сюда через JS -->
