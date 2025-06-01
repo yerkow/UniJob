@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     // Универсальный компонент мультивыбора
-    function createMultiSelect(containerId, options) {
+    function createMultiSelect(containerId, options, placeholderText) {
         const container = document.getElementById(containerId);
         container.innerHTML = `
             <div class="selected-list"></div>
-            <input type="text" class="multi-input" placeholder="Введите специализацию...">
+            <input type="text" class="multi-input" placeholder="${placeholderText}">
             <div class="options-list" style="display:none"></div>
         `;
         const selectedList = container.querySelector('.selected-list');
@@ -148,9 +148,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Инициализация мультиселектов ---
-    createMultiSelect('skillsMultiSelect', skillsOptions);
-    createMultiSelect('languagesMultiSelect', languagesOptions);
-    createMultiSelect('specializationMultiSelect', specializationOptions);
+    createMultiSelect('skillsMultiSelect', skillsOptions, "Введите навык...");
+    createMultiSelect('languagesMultiSelect', languagesOptions, "Введите язык...");
+    createMultiSelect('specializationMultiSelect', specializationOptions, "Введите специализацию...");  
     function createAiSelect(containerId){
         const containerDiv = document.getElementById(containerId)
         const selectedList = containerDiv.querySelector('.selected-list')
@@ -158,6 +158,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- MCP: AI smart filter ---
     async function aiSmartFilter(queryText) {
         const response = await fetch('/api/ai_filter', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                query: queryText,
+                skills: skillsOptions,
+                specializations: specializationOptions,
+                languages: languagesOptions
+            })
+        });
+
+        try {
+            const ai_filter = await response.json();
+            console.log(ai_filter)
+            // Выставляем выбранные значения в мультиселекты
+            skillsMultiSelect.setSelected(ai_filter.filters.skills || []);
+            specializationMultiSelect.setSelected(ai_filter.filters.specializations || []);
+            languagesMultiSelect.setSelected(ai_filter.filters.languages || []);
+        } catch (e) {
+            console.log('Ошибка ', e)
+        }
+    }
+
+    // --- AI: reasoning (текст) ---
+    async function aiReasoning(queryText) {
+        const response = await fetch('/api/ai_reasoning', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -177,17 +202,26 @@ document.addEventListener('DOMContentLoaded', function() {
             result += decoder.decode(value, { stream: true });
             document.getElementById('aiReasoning').textContent = result;
         }
-        // После завершения потока — парсим JSON и выставляем фильтры
-        try {
-            const ai_filter = JSON.parse(result);
-            // Выставляем выбранные значения в мультиселекты
-            skillsMultiSelect.setSelected(ai_filter.filters.skills || []);
-            specializationMultiSelect.setSelected(ai_filter.filters.specializations || []);
-            languagesMultiSelect.setSelected(ai_filter.filters.languages || []);
-        } catch (e) {
-            // Если не удалось распарсить — ничего не делаем
-        }
     }
+
+    // --- AI: filters (JSON) ---
+    // async function aiFilters(queryText) {
+    //     const response = await fetch('/api/ai_filter', {
+    //         method: 'POST',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //             query: queryText,
+    //             skills: skillsOptions,
+    //             specializations: specializationOptions,
+    //             languages: languagesOptions
+    //         })
+    //     });
+    //     const ai_filter = await response.json();
+    //     // Выставляем выбранные значения в мультиселекты
+    //     skillsMultiSelect.setSelected(ai_filter.filters.skills || []);
+    //     specializationMultiSelect.setSelected(ai_filter.filters.specializations || []);
+    //     languagesMultiSelect.setSelected(ai_filter.filters.languages || []);
+    // }
 
     // --- Фильтрация студентов ---
     async function fetchAndRenderStudents() {
@@ -273,16 +307,21 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === filterModal) filterModal.classList.remove('active');
     };
 
-    searchBtn.onclick = function() {
-        fetchAndRenderStudents();
-        aiSmartFilter(searchInput.value);
+    searchBtn.onclick = async function() {
+        await aiReasoning(searchInput.value)
+        await aiSmartFilter(searchInput.value)
+        // await aiFilters(searchInput.value);
+        await fetchAndRenderStudents();
+        // await aiFilters(searchInput.value);
     };
 
-    searchInput.addEventListener('keydown', function(e) {
+    searchInput.addEventListener('keydown', async function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            fetchAndRenderStudents();
-            aiSmartFilter(searchInput.value);
+            await aiReasoning(searchInput.value)
+            await aiSmartFilter(searchInput.value);
+            await fetchAndRenderStudents();
+
         }
     });
 

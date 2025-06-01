@@ -16,7 +16,7 @@ router = APIRouter()
 OPENAI_API_KEY = os.getenv("TOKENGPT")
 print('ТОКЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕН' ,OPENAI_API_KEY)
 
-@router.post("/api/ai_filter")
+@router.post("/api/ai_reasoning")
 async def ai_filter(requests: Request):
     data = await requests.json()
     user_query = data["query"]
@@ -27,37 +27,19 @@ async def ai_filter(requests: Request):
     specs_str = ", ".join(specializations)
     langs_str = ", ".join(languages)
     prompt = f"""
-    У тебя есть фильтры для поиска студентов: навыки, специализации, языки.
-    Вот список всех возможных навыков: {skills_str}
-    Вот список всех возможных специализаций: {specs_str}
-    Вот список всех возможных языков: {langs_str}
+    Ты — ассистент, который объясняет, как запрос работодателя связан с фильтрами (навыки, специализации, языки).
+
+    Вот список всех возможных навыков: {skills}
+    Вот список всех возможных специализаций: {specializations}
+    Вот список всех возможных языков: {languages}
 
     Пользователь написал запрос: "{user_query}"
 
-    Твоя задача:
-    1. Проанализируй текст запроса пользователя.
-    2. Определи, какие значения из каждого списка подходят под этот запрос (даже если пользователь не использует точные формулировки из списка).
-    3. Для каждого фильтра выбери только те значения, которые максимально соответствуют смыслу запроса.
-    4. Объясни свой выбор простыми словами (reasoning), чтобы человек понял твою логику.
-    5. Верни результат в виде корректного JSON следующего вида:
-
-    {{
-    "reasoning": "Тут твое объяснение, почему выбраны именно эти фильтры.",
-    "filters": {{
-        "skills": ["Навык1", "Навык2"],
-        "specializations": ["Специализация1"],
-        "languages": ["Язык1", "Язык2"]
-    }}
-    }}
-
-    **ВНИМАНИЕ:**  
-    - Форма отчётности — только корректный JSON, как в примере выше.
-    - Не добавляй никаких пояснений, текста до или после JSON, не используй форматирования Markdown.
-    - Если в запросе нет информации для какого-то фильтра, оставь соответствующий список пустым.
-    - Не придумывай значения, которых нет в списках!
-    - Ответ должен быть валидным JSON-объектом для автоматической обработки.
+    Твоя задача — объяснить свой выбор фильтров:
+    - Напиши только reasoning — обычный текст, без фигурных скобок, без JSON, без ключей.
+    - Не выводи JSON и не используй никакое форматирование.
+    - Просто объясни, какие фильтры, по твоему мнению, могут быть выбраны по этому запросу и почему.
     """
-
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
         api_key=OPENAI_API_KEY,
@@ -72,10 +54,56 @@ async def ai_filter(requests: Request):
         for chunk in response:
             if hasattr(chunk, "choices") and chunk.choices:
                 delta = chunk.choices[0].delta
+                print(delta)
                 if hasattr(delta, "content") and delta.content:
                     yield delta.content  # отправляем кусочек сразу
 
     return StreamingResponse(stream_response(), media_type="text/plain")
+
+@router.post("/api/ai_filter")
+async def ai_filter(requests: Request):
+    data = await requests.json()
+    user_query = data["query"]
+    skills = data.get("skills", [])
+    specializations = data.get("specializations", [])
+    languages = data.get("languages", [])
+    prompt = f"""
+    Ты — ассистент, который формирует JSON-фильтры по запросу работодателя.
+
+    Вот список всех возможных навыков: {skills}
+    Вот список всех возможных специализаций: {specializations}
+    Вот список всех возможных языков: {languages}
+
+    Пользователь написал запрос: "{user_query}"
+
+    Твоя задача:
+    - Верни **только** JSON-объект строго в таком формате:
+
+    {{
+      "filters": {{
+        "skills": ["Навык1", "Навык2"],
+        "specializations": ["Спец1"],
+        "languages": ["Язык1"]
+      }}
+    }}
+
+    - Без пояснений, без текста до или после.
+    - Не используй Markdown или форматирование.
+    - Если какой-то список пуст — оставь его пустым.
+    - Не придумывай значения, которых нет в списке.
+    """
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=OPENAI_API_KEY,
+    )   
+    response = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    content = response.choices[0].message.content
+    filters_json = json.loads(content)
+    return JSONResponse(content=filters_json)
+
     
 
 
