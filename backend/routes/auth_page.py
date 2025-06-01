@@ -33,9 +33,8 @@ async def register_user(request: Request ,data: UserCreate ,db: Session = Depend
     newUser = User(email= data.email, hashed_password= hash, first_name= data.name, last_name= data.surname, types= data.type)
     db.add(newUser)
     db.commit()
-<<<<<<< HEAD
-    return RedirectResponse(url="/sprofile", status_code=307)
-=======
+
+
     if newUser.types == "user":
         response = RedirectResponse(url="/sprofile", status_code=303)
     elif newUser.types == "org":
@@ -43,4 +42,4 @@ async def register_user(request: Request ,data: UserCreate ,db: Session = Depend
     response.set_cookie(key="email", value=newUser.email)
     response.set_cookie(key="type", value=newUser.types)
     return response
->>>>>>> rollan
+
