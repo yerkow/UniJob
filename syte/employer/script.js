@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    // 1. Получение элементов DOM
     // --- Модальное окно фильтров ---
     const filterModal = document.getElementById('filterModal');
     const openFiltersBtn = document.getElementById('openFiltersBtn');
@@ -17,12 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const directionNameFilter = document.getElementById('directionNameFilter');
     const genderFilter = document.getElementById('genderFilter');
     const studentsList = document.getElementById('studentsList');
-    // Для доступа к выбранным значениям
     const skillsMultiSelect = document.getElementById('skillsMultiSelect');
     const languagesMultiSelect = document.getElementById('languagesMultiSelect');
     const specializationMultiSelect = document.getElementById('specializationMultiSelect');
+    const aiReasoningBox = document.getElementById('aiReasoning');
+    const aiReasoningToggle = document.getElementById('aiReasoningToggle');
+    const aiReasoningToggleIcon = document.getElementById('aiReasoningToggleIcon');
+    const loader = document.getElementById('.loader')
 
-    // --- Мультиселекты ---
+    // 2. Опции для мультиселектов
     const skillsOptions = [
         "JavaScript", "Python", "Java", "C++", "C#", "PHP", "HTML", "CSS", "SQL", "TypeScript",
         "React", "Vue.js", "Angular", "Node.js", "Express.js", "Django", "Flask", "Spring", "Kotlin",
@@ -61,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "Математика", "Frontend", "Графический дизайн", "Английский язык", "Менеджмент", "Вокал", "Data Science", "Фотография"
     ];
 
-    // Универсальный компонент мультивыбора
+    // 3. Универсальный компонент мультивыбора и инициализация мультиселектов
     function createMultiSelect(containerId, options, placeholderText) {
         const container = document.getElementById(containerId);
         container.innerHTML = `
@@ -146,16 +151,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderSelected();
     }
-
-    // --- Инициализация мультиселектов ---
     createMultiSelect('skillsMultiSelect', skillsOptions, "Введите навык...");
     createMultiSelect('languagesMultiSelect', languagesOptions, "Введите язык...");
-    createMultiSelect('specializationMultiSelect', specializationOptions, "Введите специализацию...");  
-    function createAiSelect(containerId){
-        const containerDiv = document.getElementById(containerId)
-        const selectedList = containerDiv.querySelector('.selected-list')
-    }
-    // --- MCP: AI smart filter ---
+    createMultiSelect('specializationMultiSelect', specializationOptions, "Введите специализацию...");
+
+    // 4. Вспомогательные функции для AI и фильтрации
     async function aiSmartFilter(queryText) {
         const response = await fetch('/api/ai_filter', {
             method: 'POST',
@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- AI: reasoning (текст) ---
     async function aiReasoning(queryText) {
         const response = await fetch('/api/ai_reasoning', {
             method: 'POST',
@@ -195,35 +194,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let result = '';
-        document.getElementById('aiReasoning').textContent = '';
+        document.getElementById('textAiReasoing').textContent = '';
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
             result += decoder.decode(value, { stream: true });
-            document.getElementById('aiReasoning').textContent = result;
+            document.getElementById('textAiReasoing').textContent = result;
         }
     }
 
-    // --- AI: filters (JSON) ---
-    // async function aiFilters(queryText) {
-    //     const response = await fetch('/api/ai_filter', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //             query: queryText,
-    //             skills: skillsOptions,
-    //             specializations: specializationOptions,
-    //             languages: languagesOptions
-    //         })
-    //     });
-    //     const ai_filter = await response.json();
-    //     // Выставляем выбранные значения в мультиселекты
-    //     skillsMultiSelect.setSelected(ai_filter.filters.skills || []);
-    //     specializationMultiSelect.setSelected(ai_filter.filters.specializations || []);
-    //     languagesMultiSelect.setSelected(ai_filter.filters.languages || []);
-    // }
-
-    // --- Фильтрация студентов ---
     async function fetchAndRenderStudents() {
         const params = new URLSearchParams({
             query: searchInput.value,
@@ -287,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Обработчики событий ---
+    // 5. Обработчики событий для фильтров, поиска и модальных окон
     openFiltersBtn.onclick = () => filterModal.classList.add('active');
     closeFiltersBtn.onclick = () => filterModal.classList.remove('active');
     applyFiltersBtn.onclick = () => {
@@ -310,9 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchBtn.onclick = async function() {
         await aiReasoning(searchInput.value)
         await aiSmartFilter(searchInput.value)
-        // await aiFilters(searchInput.value);
         await fetchAndRenderStudents();
-        // await aiFilters(searchInput.value);
     };
 
     searchInput.addEventListener('keydown', async function(e) {
@@ -321,14 +298,13 @@ document.addEventListener('DOMContentLoaded', function() {
             await aiReasoning(searchInput.value)
             await aiSmartFilter(searchInput.value);
             await fetchAndRenderStudents();
-
         }
     });
 
     cityFilter.onchange = fetchAndRenderStudents;
     expFilter.onchange = fetchAndRenderStudents;
 
-    // --- Остальной код для фильтров (region, area и т.д.) ---
+    // 6. Логика динамического изменения фильтров (направления и города)
     const directionsByArea = {
         "Педагогические науки": [
             "Педагогика и психология",
@@ -449,22 +425,17 @@ document.addEventListener('DOMContentLoaded', function() {
         cityFilter.value = '';
         fetchAndRenderStudents();
     };
-
-    // Показываем всех студентов при загрузке
+    // 7. Первая загрузка студентов
     fetchAndRenderStudents();
-    // document.querySelector('form').onsubmit = e => e.preventDefault();
 
-    const aiReasoningBox = document.getElementById('aiReasoning');
-    const aiReasoningToggle = document.getElementById('aiReasoningToggle');
-    const aiReasoningToggleIcon = document.getElementById('aiReasoningToggleIcon');
-    console.log()
+
+    // 8. Логика reasoning box (разворачивание/сворачивание)
     function updateReasoningToggle() {
         if (aiReasoningBox.scrollHeight > aiReasoningBox.clientHeight + 5) {
             aiReasoningToggle.style.display = '';
         } else {
             aiReasoningToggle.style.display = 'none';
         }
-        // Показывать кнопку, если текст обрезан
     }
 
     aiReasoningToggle.onclick = function() {
@@ -480,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Используй origSetReasoning для вывода reasoning:
-    origSetReasoning("Текст reasoning...");
+    // origSetReasoning("Текст reasoning...");
 
     // Если reasoning приходит по частям (stream), вызывай origSetReasoning(result) после окончания стрима
 });
