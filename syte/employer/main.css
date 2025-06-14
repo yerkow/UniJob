@@ -230,7 +230,7 @@ nav a:hover {
 .search-block #searchBtn{
     /* padding: 12px 28px; */
     /* position: relative; */
-    border-radius: 25px;
+    border-radius: 15px;
     width: 50px;
     height: 50px;
     font-size: 17px;
@@ -275,6 +275,8 @@ nav a:hover {
 .filter-content h3 {
     margin-top: 0;
     margin-bottom: 18px;
+    color: #222;
+    
 }
 .close-filter {
     position: absolute;
@@ -296,7 +298,7 @@ nav a:hover {
 }
 .filter-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 10px;
     margin-top: 10px;
 }
@@ -403,6 +405,7 @@ nav a:hover {
     border: none; 
     margin-left: 4px; 
     cursor: pointer; 
+    color: #fff;
 }
 
 .options-list {
@@ -432,12 +435,23 @@ nav a:hover {
     width: 100%; 
     /* color: #000; */
     color: #3a3a3a;;
-    padding: 6px; 
+    /* padding: 15px;  */
     border-radius: 6px; 
     border: 1px solid #ccc; 
 }
 
-
+#applyFiltersBtn,
+#resetFiltersBtn{
+    /* border: #272727; */
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 10px;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
 .ai-reasoning-box-wrapper{
     display: flex;
     flex-direction: column;
@@ -470,7 +484,14 @@ nav a:hover {
 }
 
 .text-ai-reasoing{
-    background: linear-gradient();
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(29, 29, 29,74));
+}
+
+.transition-text{
+    display: flex;
+    width: 600px;
+    height: 40px;
+    background: linear-gradient(to bottom, #ffcc70, #ff6f61);
 }
 
 .ai-reasoning-toggle{
@@ -500,7 +521,7 @@ select, textarea {
     background: rgba(255,255,255,0.08);
 }
 input::placeholder, textarea::placeholder {
-    color: white;
+    /* color: white; */
     opacity: 0.7;
 }
 

@@ -44,6 +44,7 @@
               <button class="search_block-button search_block-filterButton">Фильтры</button>
             </div>
           </div> -->
+
           <!-- Модальное окно фильтров -->
           <div class="filter-modal" id="filterModal">
             <div class="filter-content">
@@ -75,7 +76,6 @@
               </select>
               <div id="skillsMultiSelect" class="multiselect-block"></div>
               <div id="languagesMultiSelect" class="multiselect-block"></div>
-              <!-- <div id="specializationMultiSelect" class="multiselect-block"></div> -->
               <select id="regionFilter">
                 <option value="">Все регионы</option>
                 <option value="Астана">Астана</option>
@@ -118,7 +118,7 @@
               <option value="Туркестан">Туркестан</option>
               <option value="Актау">Актау</option>
               <option value="Талдыкорган">Талдыкорган</option>
-              <!-- Добавь другие города по необходимости -->
+
             </select>
               <select id="genderFilter">
                 <option value="">Любой пол</option>
@@ -131,6 +131,7 @@
               </div>
             </div>
           </div>
+          
         </div>    
         <div class="ai-reasoning-box-wrapper">
           <div class="ai-reasoning-box" id="aiReasoning">
@@ -140,17 +141,17 @@
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-            <div class=".text-ai-reasoing" id="textAiReasoing">
-              Я вижу, что вы ищете создание сайта, и это очень интересная задача! Для этого запроса я выбрал бы несколько фильтров на основе необходимых навыков, специализаций и языков.
+            <div class="text-ai-reasoing" id="textAiReasoing">
+              <!-- Я вижу, что вы ищете создание сайта, и это очень интересная задача! Для этого запроса я выбрал бы несколько фильтров на основе необходимых навыков, специализаций и языков.
               Во-первых, стоит обратить внимание на навыки. Для разработки сайта очень полезны такие навыки, как JavaScript, HTML и CSS. Эти языки в основном используются для создания веб-страниц и добавления интерактивности. Также будет полезен опыт с фреймворками, такими как React или Vue.js, если вы хотите, чтобы сайт был более динамичным и удобным в использовании.
               Во-вторых, по специализациям я бы выделил "Web-разработка" и "Frontend". Это позволит понять, что вы ищете человека, который specializes in developing websites, especially the parts that users interact with. Если вам нужен кто-то, кто будет заниматься как клиентской, так и серверной частью, то специализации "Fullstack" или "Backend" также могут быть уместными.
               И, наконец, что касается языков, в зависимости от вашей целевой аудитории может быть важно выбрать человека, который хорошо владеет английским языком или другим языком, который вам нужен. Например, если ваш сайт должен быть доступен для международной аудитории, английский будет наиболее востребованным.
-              Таким образом, я считаю, что эти фильтры помогут вам найти разработчика, который сможет создать сайт, соответствующий вашим требованиям.
+              Таким образом, я считаю, что эти фильтры помогут вам найти разработчика, который сможет создать сайт, соответствующий вашим требованиям. -->
             </div>
           </div>
-            <button class="ai-reasoning-toggle" id="aiReasoningToggle">
-                <img src="/static/employer/img/down.svg" alt="">
-            </button>
+          <button class="ai-reasoning-toggle" id="aiReasoningToggle">
+            <img src="/static/employer/img/down.svg" alt="">
+          </button>
         </div> 
         <div id="studentsList">
           <!-- Карточки студентов будут подгружаться сюда через JS -->
@@ -158,7 +159,6 @@
       </section>
       <img src="/static/employer/img/background.png" alt="">
     </main>
-    
   </div>
 </body>
 </html>
