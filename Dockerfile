@@ -20,4 +20,4 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 EXPOSE 8080
 
-CMD ["uvicorn", "backend.routes.api:app", "--reload", "--debug", "--port", "9090"]
+CMD ["uvicorn", "backend.routes.api:app", "--reload", "--debug", "--host", "0.0.0.0", "--port", "9090"]
